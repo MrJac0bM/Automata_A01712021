@@ -22,6 +22,16 @@ En este caso, el AFD se diseñará para reconocer palabras en sindarin y validar
 
 ---
 
+## Evolución del Autómata: De Múltiples Estados Finales a Uno Solo
+
+En la primera versión del autómata, se utilizaron **múltiples estados finales** para reconocer cada palabra individualmente. Esto implicaba que cada palabra válida (`dina`, `dol`, `dor`, `drego`, `draug`) tenía su propio estado final. Si bien este enfoque es funcional, puede volverse redundante y difícil de mantener a medida que el lenguaje crece.
+
+En la **segunda versión**, se optimizó el autómata reduciendo los estados finales a **uno solo**. Este enfoque, conocido como **unificación de estados finales**, simplifica el diseño del autómata y lo hace más eficiente. Como señala Hopcroft, Motwani y Ullman (2007) en su libro *Introduction to Automata Theory, Languages, and Computation*:
+
+> "La reducción de estados finales a uno solo no solo simplifica el diseño del autómata, sino que también facilita su implementación y mantenimiento."
+
+Este cambio se refleja en el diagrama del autómata, donde todas las transiciones válidas convergen en un único estado final, marcando la aceptación de las palabras del lenguaje.
+
 ## Implementación del AFD
 
 
