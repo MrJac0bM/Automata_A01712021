@@ -24,6 +24,10 @@ En este caso, el AFD se diseñará para reconocer palabras en sindarin y validar
 
 ## Implementación del AFD
 
+
 ### Expresión Regular
 
 Para reconocer las palabras `dina`, `dol`, `dor`, `drego` y `draug`, se utiliza la siguiente expresión regular:
+# ^d(ina$|o(r|l)$|r(aug|ego))
+
+
