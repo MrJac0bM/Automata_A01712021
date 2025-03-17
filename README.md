@@ -39,7 +39,9 @@ Este cambio se refleja en el diagrama del autómata, donde todas las transicione
 
 
 ## Implementación del AFD
+A continuación, se presenta el diagrama que ilustra cómo las palabras pasan a través de los estados del autómata hasta llegar al estado final
 ![image](https://github.com/user-attachments/assets/fd4878a4-bce7-4d2f-972d-7279ef9dc359)
+Este diagrama muestra cómo las palabras son procesadas por el autómata y validadas a través de sus transiciones.
 
 
 ### Expresión Regular
