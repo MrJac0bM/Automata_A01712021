@@ -31,6 +31,8 @@ En la **segunda versión**, se optimizó el autómata reduciendo los estados fin
 > "La reducción de estados finales a uno solo no solo simplifica el diseño del autómata, sino que también facilita su implementación y mantenimiento."
 
 Este cambio se refleja en el diagrama del autómata, donde todas las transiciones válidas convergen en un único estado final, marcando la aceptación de las palabras del lenguaje.
+![image](https://github.com/user-attachments/assets/d61f3f0b-81d4-4115-92da-566a00730cbb)
+
 
 ## Implementación del AFD
 
