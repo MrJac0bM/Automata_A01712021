@@ -47,4 +47,17 @@ Este cambio se refleja en el diagrama del autómata, donde todas las transicione
 Para reconocer las palabras `dina`, `dol`, `dor`, `drego` y `draug`, se utiliza la siguiente expresión regular:
 # ^d(ina$|o(r|l)$|r(aug|ego))
 
+## Análisis de Complejidad
+
+### Complejidad Temporal y Espacial
+
+#### Expresión Regular:
+
+- **Complejidad Temporal**: O(n), donde *n* es el tamaño de la entrada. La expresión regular realiza solo una pasada por la cadena de caracteres.
+- **Complejidad Espacial**: O(1), ya que la expresión regular no requiere espacio adicional basado en el tamaño de la entrada.
+
+#### Autómata Finito Determinista (AFD):
+
+- **Complejidad Temporal**: O(n), ya que se recorre cada caracter de la palabra solo una vez.
+- **Complejidad Espacial**: O(s), donde *s* es el número de estados, ya que el autómata necesita almacenar las transiciones y los estados definidos.
 
