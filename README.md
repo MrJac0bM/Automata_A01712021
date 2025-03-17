@@ -45,7 +45,15 @@ Este cambio se refleja en el diagrama del autómata, donde todas las transicione
 ### Expresión Regular
 
 Para reconocer las palabras `dina`, `dol`, `dor`, `drego` y `draug`, se utiliza la siguiente expresión regular:
-# ^d(ina$|o(r|l)$|r(aug|ego))
+### ^d(ina$|o(r|l)$|r(aug|ego))
+
+Esta expresión regular valida las palabras de acuerdo con las siguientes reglas:
+
+- **`^d`**: La palabra debe comenzar con "d".
+- **`(ina$|o(r|l)$|r(aug|ego))`**: La palabra debe terminar con una de las siguientes secuencias:
+  - **`ina$`**: La palabra termina con "ina" (como "dina").
+  - **`o(r|l)$`**: La palabra termina con "o" seguido de "r" o "l" (como "dol" o "dor").
+  - **`r(aug|ego)`**: La palabra contiene "r" seguido de "aug" o "ego" (como "draug" o "drego").
 
 ## Análisis de Complejidad
 
