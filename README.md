@@ -16,9 +16,13 @@ Las palabras del idioma sindarin que se utilizarán en este proyecto son:
 
 ## Descripción del Proyecto
 
-Para este proyecto, se implementará un **Autómata Finito Determinista (AFD)**. Estos autómatas son modelos matemáticos que procesan cadenas de símbolos y determinan si pertenecen a un lenguaje específico. Su funcionamiento se basa en un conjunto finito de estados, transiciones entre ellos y una función que define cómo cambia el estado según la entrada recibida.
+El proyecto implementa dos soluciones principales para resolver el problema de validar las palabras en sindarin: un Autómata Finito Determinista (AFD) y una expresión regular.
 
-En este caso, el AFD se diseñará para reconocer palabras en sindarin y validar si pertenecen al conjunto definido previamente.
+- Autómata Finito Determinista (AFD): Un modelo matemático que procesa cadenas de símbolos y decide si pertenecen al lenguaje aceptado, basado en un conjunto finito de estados y transiciones.
+
+- Expresión Regular: Una herramienta basada en patrones que valida las cadenas de caracteres utilizando un conjunto de reglas sintácticas.
+
+Ambas soluciones están diseñadas para aceptar las mismas palabras, y se presentan como alternativas para resolver el mismo problema de validación de palabras en sindarin.
 
 ---
 
