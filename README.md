@@ -48,7 +48,7 @@ Este diagrama muestra cómo las palabras son procesadas por el autómata y valid
 
 Para reconocer las palabras `dina`, `dol`, `dor`, `drego` y `draug`, se utiliza la siguiente expresión regular:
 
-## ``` ^d(ina$|o(r|l)$|r(aug|ego))```
+## ``` ^d(ina$|o(r|l)$|r(aug|ego)$)```
 
 Esta expresión regular valida las palabras de acuerdo con las siguientes reglas:
 
