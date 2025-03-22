@@ -72,3 +72,34 @@ Esta expresión regular valida las palabras de acuerdo con las siguientes reglas
 - **Complejidad Temporal**: O(n), ya que se recorre cada caracter de la palabra solo una vez.
 - **Complejidad Espacial**: O(s), donde *s* es el número de estados, ya que el autómata necesita almacenar las transiciones y los estados definidos.
 
+
+## Pruebas Automatizadas
+
+Se han implementado pruebas automatizadas para validar el correcto funcionamiento del AFD y la expresión regular. Estas pruebas incluyen:
+
+- Verificación de palabras válidas y no válidas.
+- Evaluación del rendimiento con entradas de distintos tamaños.
+
+### Casos de Prueba
+
+Se realizaron diversas pruebas para validar el correcto funcionamiento del sistema.
+
+#### Restricción a Minúsculas:
+
+- **Entrada válida**: `"dina"`, `"dol"`, `"dor"`, `"draug"`, `"drego"`.
+- **Entrada inválida**: `"Dina"`, `"Dol"`, `"DOR"`, `"Draug"`, `"Drego"` (mayúsculas no permitidas).
+
+#### Palabras no válidas:
+
+- `"dragon"`, `"drek"`, `"dorito"`, `"dinal"` (palabras que no cumplen con el patrón esperado).
+- `"ddina"`, `"dolp"`, `"dorrr"` (palabras con caracteres extra o repetidos).
+
+#### Palabras largas que cumplen con el patrón:
+
+- `"dinadina"`, `"dolor"`, `"dorlor"` (se espera que no sean aceptadas porque contienen partes válidas pero no son exactas a las palabras permitidas).
+
+### Benchmark de Soluciones
+
+Se realizó una comparación de tiempos de ejecución entre la expresión regular y el autómata determinista:
+
+
