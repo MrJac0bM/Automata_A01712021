@@ -1,4 +1,4 @@
-# Proyecto: Autómata Finito Determinista (AFD) para palabras en Sindarin
+# Proyecto: Autómata Finito Determinista (AFD) 
 
 ## Introducción
 
@@ -44,7 +44,7 @@ A continuación, se presenta el diagrama que ilustra cómo las palabras pasan a 
 Este diagrama muestra cómo las palabras son procesadas por el autómata y validadas a través de sus transiciones.
 
 
-# Expresión Regular
+## Expresión Regular
 
 Para reconocer las palabras `dina`, `dol`, `dor`, `drego` y `draug`, se utiliza la siguiente expresión regular:
 
@@ -57,6 +57,65 @@ Esta expresión regular valida las palabras de acuerdo con las siguientes reglas
   - **`ina$`**: La palabra termina con "ina" (como "dina").
   - **`o(r|l)$`**: La palabra termina con "o" seguido de "r" o "l" (como "dol" o "dor").
   - **`r(aug|ego)`**: La palabra contiene "r" seguido de "aug" o "ego" (como "draug" o "drego").
+ 
+# Implementación
+## Transiciones entre estados:
+```prolog
+transicion(q0, d, q1). %"dina"
+transicion(q1, i, q2). %"dina"
+transicion(q2, n, q3). %"dina"
+transicion(q3, a, q4). %"dina"
+
+transicion(q1, o, q5). %"dol" y "dor"
+transicion(q5, l, q4). % "dol"
+transicion(q5, r, q4). %"dol"
+
+transicion(q1, r, q6). % Transición para "drego" y "draug"
+transicion(q6, e, q7). % Transición para "drego"
+transicion(q7, g, q8). % Transición para "drego"
+transicion(q8, o, q4). % Transición para "drego"
+
+transicion(q6, a, q9). % Transición para "draug"
+transicion(q9, u, q10). % Transición para "draug"
+transicion(q10, g, q4). % Transición para "draug"
+```
+
+## Estado Final:
+Solamente existe un estado final el cual es q4:
+```prolog
+estado_final(q4).
+```
+## Estado inicial:
+Solamente existe un estado inicial el cual es el punto de entrada y es q0:
+```prolog
+estado_inicial(q0).
+```
+
+## Validación de cadenas de texto:
+
+### Caso Base:
+Si la cadena esta vacia o se llega al final el estado EstadoActual debe ser el estado final de lo contrario se rechaza la cadena 
+```prolog
+acepta_aux([], Estado) :- 
+    estado_final(Estado)..
+```
+
+### Caso Recursivo:
+Este caso procesa toda la lista y en cada iteración va actualizando el estado actual hasta llegar al caso base
+```prolog
+acepta_aux([Cabeza|Cola], EstadoActual) :- 
+    transicion(EstadoActual, Cabeza, EstadoSiguiente), 
+    acepta_aux(Cola, EstadoSiguiente)..
+```
+
+### Caso Llamada a la función principal:
+Se procesa la palabra y se convierte a un arreglo cada caracter de la palabra, se establece el estado inicial y se inicia la validación desde el estado inicial 
+```prolog
+acepta(Palabra) :-
+    atom_chars(Palabra, Caracteres), % Convierte la palabra en una lista de caracteres
+    estado_inicial(EstadoInicial), % Unico Estado inicial que es q0
+    acepta_aux(Caracteres, EstadoInicial). % Pasa la cadena de caracteres ya en array y el estado inicial q0
+```
 
 ## Análisis de Complejidad
 
@@ -73,7 +132,7 @@ Esta expresión regular valida las palabras de acuerdo con las siguientes reglas
 - **Complejidad Espacial**: O(s), donde *s* es el número de estados, ya que el autómata necesita almacenar las transiciones y los estados definidos.
 
 
-## Pruebas Automatizadas
+## Pruebas 
 
 Se han implementado pruebas automatizadas para validar el correcto funcionamiento del AFD y la expresión regular. Estas pruebas incluyen:
 
@@ -98,8 +157,79 @@ Se realizaron diversas pruebas para validar el correcto funcionamiento del siste
 
 - `"dinadina"`, `"dolor"`, `"dorlor"` (se espera que no sean aceptadas porque contienen partes válidas pero no son exactas a las palabras permitidas).
 
-### Benchmark de Soluciones
+### Prueba de Automata 
+![image](https://github.com/user-attachments/assets/e3d6096e-dbf5-4dd9-b1d5-a8137b5897bd)
 
-Se realizó una comparación de tiempos de ejecución entre la expresión regular y el autómata determinista:
+### Prueba con Regex
+![image](https://github.com/user-attachments/assets/fdcbc140-ed86-4a41-adc7-a294b8f63538)
+
+
+
+## Benchmark de Soluciones
+
+Para comparar el rendimiento de ambas soluciones (expresión regular y autómata finito determinista), se implementó un benchmark en Prolog. Se midió el tiempo de ejecución de cada método utilizando el predicado `statistics(runtime, [Time,_])`, que permite obtener el tiempo transcurrido en milisegundos.
+
+A continuación, se presenta la implementación utilizada para medir los tiempos de ejecución:
+
+### Implementación en Autómata :
+```prolog
+benchmark(Palabra) :-
+    % Medir el tiempo antes de la ejecución
+    statistics(runtime, [StartTime, _]),
+    
+    % Ejecutar el predicado acepta con la palabra
+    acepta(Palabra),
+    
+    % Medir el tiempo después de la ejecución
+    statistics(runtime, [EndTime, _]),
+    
+    % Calcular el tiempo transcurrido en microsegundos
+    RuntimeMicroseconds is EndTime - StartTime,
+    
+    % Convertir el tiempo a milisegundos
+    RuntimeMilliseconds is RuntimeMicroseconds / 1000000,
+    
+    % Mostrar el tiempo de ejecución en milisegundos
+    format('Tiempo de ejecución para "~w": ~5f milisegundos~n', [Palabra, RuntimeMilliseconds]).
+```
+
+### Implementación en Regex:
+```prolog
+benchmark(Palabra) :-
+    % Medir el tiempo antes de la ejecución
+    statistics(runtime, [StartTime, _]),
+    
+    % Ejecutar el predicado acepta_regex con la palabra
+    acepta_regex(Palabra),
+
+    % Medir el tiempo después de la ejecución
+    statistics(runtime, [EndTime, _]),
+    
+    % Calcular el tiempo transcurrido
+    Runtime is EndTime - StartTime,
+    
+    % Mostrar el tiempo de ejecución
+    write('Tiempo de ejecución para "'), write(Palabra), write('": '), write(Runtime), nl.
+
+```
+### Resultados 
+| Método               | Tiempo de ejecución |
+|----------------------|--------------------|
+| **AFD**             | 0.00002 ms           |
+| **Expresión Regular** | 0.000015 ms          |
+
+
+## Referencias:
+- SWI-Prolog -- library(pcre): Perl compatible regular expression matching for SWI-Prolog. (s/f). Swi-prolog.org. Recuperado el 23 de marzo de 2025, de https://www.swi-prolog.org/pldoc/man?section=pcre
+
+- SWI-Prolog -- statistics/2. (s/f). Swi-prolog.org. Recuperado el 23 de marzo de 2025, de https://www.swi-prolog.org/pldoc/man?predicate=statistics/2
+
+- Wikipedia contributors. (s/f). Sindarin. Wikipedia, The Free Encyclopedia. https://es.wikipedia.org/w/index.php?title=Sindarin&oldid=164227280
+
+- SWI-Prolog -- atom_chars/2. (s/f). Swi-prolog.org. Recuperado el 23 de marzo de 2025, de https://www.swi-prolog.org/pldoc/man?predicate=atom_chars/2
+
+- (S/f). Uba.ar. Recuperado el 23 de marzo de 2025, de https://www-2.dc.uba.ar/staff/becher/Hopcroft-Motwani-Ullman-2001.pdf
+
+
 
 
