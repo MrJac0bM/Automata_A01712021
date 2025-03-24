@@ -230,6 +230,9 @@ benchmark(Palabra) :-
 
 - (S/f). Uba.ar. Recuperado el 23 de marzo de 2025, de https://www-2.dc.uba.ar/staff/becher/Hopcroft-Motwani-Ullman-2001.pdf
 
+- Sintaxis de las expresiones regulares - Ayuda de Administrador de Google Workspace. (n.d.-b). https://support.google.com/a/answer/1371415?hl=es
+
+
 
 
 
